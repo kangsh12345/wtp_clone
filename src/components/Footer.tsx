@@ -8,7 +8,7 @@ export default function Footer() {
           <Summary>
             지금까지&nbsp;
             <Emphasis>* 644,934,343 개의 평가가</Emphasis>
-            &nbsp;쌓였엉.
+            &nbsp;쌓였어요.
           </Summary>
         </Statistics>
         <Container>
