@@ -2,11 +2,14 @@ import { PropsWithChildren } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
-import ReactSlick, { Settings } from 'react-slick';
+import Slider, { Settings } from 'react-slick';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   padding: 16px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   z-index: 1;
   top: 50%;
@@ -14,13 +17,13 @@ const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   ${({ pos }) =>
     pos === 'left'
       ? css`
-          left: 0;
+          left: 2.5%;
           transform: translate(-50%, -50%);
         `
       : css`
-          right: 0;
+          right: 2.5%;
           transform: translate(50%, -50%);
-        `}
+        `};
   &:before {
     content: initial;
   }
@@ -38,31 +41,31 @@ const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
 const DEFAULT_SETTINGS: Settings = {
   dots: false,
   arrows: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
   slidesToShow: 5,
   slidesToScroll: 5,
   swipe: true,
   draggable: true,
   prevArrow: (
-    <ArrowButton>
+    <ArrowButton pos="left">
       <MdArrowBackIos />
     </ArrowButton>
   ),
   nextArrow: (
-    <ArrowButton>
+    <ArrowButton pos="right">
       <MdArrowForwardIos />
     </ArrowButton>
   ),
 };
 
 interface Props {
-  settings: Settings;
+  settings?: Settings;
 }
 
-export default function Slider({
+export default function SimpleSlider({
   settings = DEFAULT_SETTINGS,
   children,
 }: PropsWithChildren<Props>) {
-  return <ReactSlick {...settings}>{children}</ReactSlick>;
+  return <Slider {...settings}>{children}</Slider>;
 }
