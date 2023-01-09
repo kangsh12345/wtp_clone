@@ -17,11 +17,9 @@ const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   ${({ pos }) =>
     pos === 'left'
       ? css`
-          left: 2.5%;
           transform: translate(-50%, -50%);
         `
       : css`
-          right: 2.5%;
           transform: translate(50%, -50%);
         `};
   &:before {
