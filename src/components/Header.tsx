@@ -1,8 +1,19 @@
+import { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 import { AiOutlineSearch } from 'react-icons/ai';
 
+import useMovieSearch from '../features/movie/useMovieSearch';
+
 export default function Header() {
-  const handleKeyword = () => {};
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const pathname = window.location.pathname;
+  const isTv = pathname.indexOf('tv') > -1;
+
+  const handleKeyword = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const { data: searchResult } = useMovieSearch(searchKeyword);
 
   return (
     <Base>
@@ -19,10 +30,10 @@ export default function Header() {
             </Menu>
             <Menu>
               <Link href="/">
-                <MenuButton>영화</MenuButton>
+                <MenuButton active={!isTv}>영화</MenuButton>
               </Link>
               <Link href="/tv">
-                <MenuButton>TV 프로그램</MenuButton>
+                <MenuButton active={isTv}>TV 프로그램</MenuButton>
               </Link>
             </Menu>
             <SearchMenu>
@@ -39,6 +50,15 @@ export default function Header() {
                   </SearchFrom>
                 </SearchFromWrapper>
               </SearchContainer>
+              <SearchResultWrapper>
+                <SearchResultList>
+                  {searchResult?.data.results.map(item => (
+                    <Link key={item.id} href={`/movie/${item.id}`}>
+                      <SearchResultListItem>{item.title}</SearchResultListItem>
+                    </Link>
+                  ))}
+                </SearchResultList>
+              </SearchResultWrapper>
             </SearchMenu>
             <Menu>
               <SignIn>로그인</SignIn>
@@ -77,7 +97,6 @@ const MenuList = styled.ul`
   padding: 0;
   margin: 0;
   display: flex;
-  overflow: hidden;
 `;
 
 const Menu = styled.li`
@@ -178,4 +197,41 @@ const SignUp = styled.button`
   border: 1px solid rgba(116, 116, 123, 0.5);
   cursor: pointer;
   margin: 15px 0;
+`;
+
+const SearchResultWrapper = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
+  z-index: 9999999;
+  background-color: #fff;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  max-height: 480px;
+  overflow-y: scroll;
+`;
+
+const SearchResultListItem = styled.li`
+  padding: 4px 6px;
+  box-sizing: border-box;
+  color: #222;
+  font-size: 16px;
+  width: 100%;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:hover {
+    background-color: #eee;
+  }
+`;
+
+const SearchResultList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
