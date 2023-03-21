@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import DefaultInfo from '../features/movie/detail/DefaultInfo';
+import Similar from '../features/movie/detail/Similar';
 import useMovieDetail from '../features/movie/useMovieDetail';
 
 const Base = styled.div`
@@ -296,8 +298,14 @@ export default function MovieDetail() {
           </TopInfo>
           <BottomInfo>
             <ContentSectionContainer>
-              {/* <DefaultInfo /> */}
-              {/* <Similar /> */}
+              <DefaultInfo
+                title={data.data.title}
+                year={year}
+                genres={genres}
+                runtime={data.data.runtime}
+                overview={data.data.overview}
+              />
+              <Similar id={id} />
             </ContentSectionContainer>
           </BottomInfo>
         </>
