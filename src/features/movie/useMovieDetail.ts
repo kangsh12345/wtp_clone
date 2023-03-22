@@ -8,7 +8,7 @@ export default function useMovieDetail(query: string) {
   const queryFn = () => detailApi(query);
 
   return useQuery<AxiosResponse<MovieDetail>, AxiosError>(
-    ['detailApi', query],
+    ['movieDetail', query],
     queryFn,
   );
 }

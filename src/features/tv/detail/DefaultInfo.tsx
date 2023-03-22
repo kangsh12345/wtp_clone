@@ -38,20 +38,10 @@ interface Props {
   title: string;
   year: string;
   genres: string;
-  runtime: number;
   overview: string;
 }
 
-export default function DefaultInfo({
-  title,
-  year,
-  runtime,
-  genres,
-  overview,
-}: Props) {
-  const hour = Math.ceil(runtime / 60);
-  const minute = runtime % 60;
-
+export default function DefaultInfo({ title, year, genres, overview }: Props) {
   return (
     <Base>
       <HeaderWrapper>
@@ -65,8 +55,6 @@ export default function DefaultInfo({
           {title}
           <br />
           {year} · {genres}
-          <br />
-          {hour}시간 {minute}분
           <br />
           <br />
           {overview}
